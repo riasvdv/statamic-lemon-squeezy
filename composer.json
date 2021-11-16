@@ -1,0 +1,22 @@
+{
+    "name": "rias/statamic-lemon-squeezy",
+    "autoload": {
+        "psr-4": {
+            "Rias\\StatamicLemonSqueezy\\": "src"
+        }
+    },
+    "require": {
+        "statamic/cms": "^3.2"
+    },
+    "extra": {
+        "statamic": {
+            "name": "Statamic Lemon Squeezy",
+            "description": "The Lemon Squeezy Statamic addon makes it easy to start selling digital products on your Statamic website"
+        },
+        "laravel": {
+            "providers": [
+                "Rias\\StatamicLemonSqueezy\\LemonSqueezyServiceProvider"
+            ]
+        }
+    }
+}
