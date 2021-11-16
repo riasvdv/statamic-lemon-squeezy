@@ -1,6 +1,6 @@
 # Lemon Squeezy Statamic addon
 
-![Connection](./docs/lemon-squeezy-connection.png)
+![Connection](https://github.com/riasvdv/statamic-lemon-squeezy/raw/main/docs/lemon-squeezy-connection.png)
 
 The [Lemon Squeezy Statamic](https://statamic.com/marketplace) addon makes it easy to start selling digital products on your Statamic website without having to take on all of the bloat and maintenance headaches of a traditional e-commerce plugin. Getting started is simple:
 
@@ -13,7 +13,7 @@ Once the addon has been installed and activated, a new "Lemon Squeezy" item will
 
 ## Adding Checkout Buttons
 
-![Webhooks](./docs/lemon-squeezy-fieldtype.png)
+![Webhooks](https://github.com/riasvdv/statamic-lemon-squeezy/raw/main/docs/lemon-squeezy-fieldtype.png)
 
 After [adding a product](https://docs.lemonsqueezy.com/article/65-adding-a-product) on Lemon Squeezy, it can easily be added to any Statamic entry by using the built-in Lemon Squeezy fieldtype. To add a checkout button using the Statamic:
 
@@ -25,7 +25,7 @@ After [adding a product](https://docs.lemonsqueezy.com/article/65-adding-a-produ
 
 ## Webhooks
 
-![Webhooks](./docs/lemon-squeezy-connection.png)
+![Webhooks](https://github.com/riasvdv/statamic-lemon-squeezy/raw/main/docs/lemon-squeezy-connection.png)
 
 This addon can also receive and validate webhooks to dispatch Laravel events with the received data. More information on how to set these up is displayed in the Lemon Squeezy section of the side navigation.
 
