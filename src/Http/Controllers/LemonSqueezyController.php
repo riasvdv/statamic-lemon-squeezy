@@ -2,16 +2,25 @@
 
 namespace Rias\StatamicLemonSqueezy\Http\Controllers;
 
+use http\Message;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\MessageBag;
 use Illuminate\Support\ViewErrorBag;
 use Statamic\Support\Str;
 
 class LemonSqueezyController extends Controller
 {
-    public function index()
+    use AuthorizesRequests;
+
+    public function index(): View
     {
+        $this->authorize('lemon squeezy');
+
         $user = null;
 
         if($token = $this->getToken()) {
@@ -24,7 +33,7 @@ class LemonSqueezyController extends Controller
 
             if (! $response->successful()) {
                 $errors = new ViewErrorBag();
-                $errors->put('oauth', $response->body());
+                $errors->add('oauth', $response->body());
 
                 return view('lemon-squeezy::index', compact('errors'));
             }
@@ -38,14 +47,14 @@ class LemonSqueezyController extends Controller
         ]);
     }
 
-    public function oauth(Request $request)
+    public function oauth(Request $request): RedirectResponse
     {
-        if (! session()->has('lsq_oauth_code')) {
-            session()->put('lsq_oauth_code', Str::random(40));
+        if (! $request->session()->has('lsq_oauth_code')) {
+            $request->session()->put('lsq_oauth_code', Str::random(40));
         }
 
-        if (! session()->has('lsq_oauth_code_verifier')) {
-            session()->put('lsq_oauth_code_verifier', Str::random(128));
+        if (! $request->session()->has('lsq_oauth_code_verifier')) {
+            $request->session()->put('lsq_oauth_code_verifier', Str::random(128));
         }
 
         $code_challenge = strtr(
@@ -72,14 +81,16 @@ class LemonSqueezyController extends Controller
         return redirect()->to($this->app_url . '/oauth/authorize?' . $query);
     }
 
-    public function disconnect()
+    public function disconnect(): RedirectResponse
     {
+        $this->authorize('lemon squeezy');
+
         File::delete(base_path('lemon-squeezy.json'));
 
         return redirect(cp_route('lemon-squeezy'));
     }
 
-    public function callback(Request $request)
+    public function callback(Request $request): RedirectResponse
     {
         if ($request->has('error')) {
             return redirect()->to(cp_route('lemon-squeezy'))->withErrors([
@@ -87,7 +98,7 @@ class LemonSqueezyController extends Controller
             ]);
         }
 
-        if (! session()->has('lsq_oauth_code') || !session()->has('lsq_oauth_code_verifier')) {
+        if (! $request->session()->has('lsq_oauth_code') || ! $request->session()->has('lsq_oauth_code_verifier')) {
             abort('401');
         }
 
@@ -118,6 +129,6 @@ class LemonSqueezyController extends Controller
 
         File::put(storage_path('statamic/lemon-squeezy.json'), json_encode($data));
 
-        return redirect(cp_route('lemon-squeezy'));
+        return redirect()->to(cp_route('lemon-squeezy'));
     }
 }

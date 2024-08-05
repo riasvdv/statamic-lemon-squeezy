@@ -3,6 +3,7 @@
 namespace Rias\StatamicLemonSqueezy\Http\Controllers;
 
 use Illuminate\Support\Facades\File;
+use Throwable;
 
 abstract class Controller
 {
@@ -13,8 +14,8 @@ abstract class Controller
     protected function getToken(): ?string
     {
         try {
-            $data = json_decode(File::get(storage_path('statamic/lemon-squeezy.json')), true);
-        } catch (\Exception $e) {
+            $data = json_decode(File::get(storage_path('statamic/lemon-squeezy.json')), true, 512, JSON_THROW_ON_ERROR);
+        } catch (Throwable) {
             $data = null;
         }
 

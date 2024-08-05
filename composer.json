@@ -6,7 +6,7 @@
         }
     },
     "require": {
-        "statamic/cms": "^3.2"
+        "statamic/cms": "^5.0"
     },
     "extra": {
         "statamic": {
@@ -17,6 +17,11 @@
             "providers": [
                 "Rias\\StatamicLemonSqueezy\\LemonSqueezyServiceProvider"
             ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "pixelfear/composer-dist-plugin": true
         }
     }
 }

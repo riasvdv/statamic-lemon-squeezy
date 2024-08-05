@@ -22,6 +22,7 @@ After [adding a product](https://docs.lemonsqueezy.com/article/65-adding-a-produ
 3. Select the product you would like to sell from the dropdown
 4. Add some button text (e.g. "Buy now")
 5. Toggle "Use checkout overlay" if you would like to use the checkout overlay (opens in a modal instead of redirecting to the checkout)
+6. Add the field to your template with `{{ lemon_squeezy_field }}`
 
 ## Webhooks
 

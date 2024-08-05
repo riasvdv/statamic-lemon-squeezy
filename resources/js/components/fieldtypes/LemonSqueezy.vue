@@ -1,10 +1,10 @@
 <template>
-  <fieldset class="flex flex-col gap-2 border-grey-40 px-2 py-2 rounded m-0 relative">
-      <div v-show="!isLoadingStores && !error && stores.length > 1">
+  <fieldset class="flex flex-col gap-2 border-grey-40 rounded m-0 relative">
+      <div class="field-inner" v-show="!isLoadingStores && !error && stores.length > 1">
         <label class="publish-field-label">Store</label>
         <select-input v-model="value.store" :options="stores" />
       </div>
-      <div>
+      <div class="field-inner">
         <label class="publish-field-label">Product</label>
         <select-input v-show="!isLoadingProducts && products.length > 0" v-model="value.product" :options="products" />
         <div v-show="isLoadingStores">
@@ -17,15 +17,33 @@
           <small>No products found...</small>
         </div>
       </div>
-      <div>
+      <div class="field-inner">
         <label class="publish-field-label">Button text</label>
         <text-input v-model="value.buttonText" />
       </div>
-      <div>
+      <div class="field-inner">
         <label class="publish-field-label">Use checkout overlay?</label>
-        <toggle-input v-model="value.overlay" />
-        <p class="text-grey text-sm" v-show="value.overlay">Your checkout will be opened in a modal window.</p>
-        <p class="text-grey text-sm" v-show="!value.overlay">Your customer will be redirected to your checkout page.</p>
+        <div class="flex items-center gap-2">
+          <toggle-input v-model="value.overlay" />
+          <p class="text-grey text-sm" v-show="value.overlay">Your checkout will be opened in a modal window.</p>
+          <p class="text-grey text-sm" v-show="!value.overlay">Your customer will be redirected to your checkout page.</p>
+        </div>
+      </div>
+      <div class="flex gap-2 items-center">
+        <label class="publish-field-label">Show store logo</label>
+        <toggle-input v-model="value.showStoreLogo" />
+      </div>
+      <div class="flex gap-2 items-center">
+        <label class="publish-field-label">Show product media</label>
+        <toggle-input v-model="value.showMedia" />
+      </div>
+      <div class="flex gap-2 items-center">
+        <label class="publish-field-label">Show product description</label>
+        <toggle-input v-model="value.showDescription" />
+      </div>
+      <div class="flex gap-2 items-center">
+        <label class="publish-field-label">Show discount code</label>
+        <toggle-input v-model="value.showDiscountCode" />
       </div>
       <div v-show="error">
         <small class="text-red">Error: {{ error }}</small>
@@ -55,7 +73,27 @@ export default {
           product: null,
           buttonText: null,
           overlay: false,
+          showStoreLogo: true,
+          showMedia: true,
+          showDescription: true,
+          showDiscountCode: true,
         }
+      }
+
+      if (this.value.showStoreLogo === undefined) {
+        this.value.showStoreLogo = true;
+      }
+
+      if (this.value.showMedia === undefined) {
+        this.value.showMedia = true;
+      }
+
+      if (this.value.showDescription === undefined) {
+        this.value.showDescription = true;
+      }
+
+      if (this.value.showDiscountCode === undefined) {
+        this.value.showDiscountCode = true;
       }
   },
 
